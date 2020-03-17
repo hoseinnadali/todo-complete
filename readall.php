@@ -5,10 +5,10 @@ require_once "main.php";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-  $readCrud = new MyCrud();
-  $query = "SELECT * FROM $readCrud->tableName";
-  $readAllConnection = $readCrud->setConnection();
-  $readCrud->readAll($readAllConnection,$query);
+  $readAllCrud = new MyCrud();
+  $readAllQuery = "SELECT * FROM $readAllCrud->tableName";
+  $readAllConnection = $readAllCrud->setConnection();
+  $readAllCrud->read($readAllConnection,$readAllQuery);
   exit();
 }
 echo "Sorry!!!There is missing request";
