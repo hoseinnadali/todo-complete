@@ -1,11 +1,16 @@
 <?php
-
+//define constants for server connection configure
 define("serverName","localhost");
 define("userName","root");
 define("password","");
 define("dbName","tododb");
 define("tableName","todolist");
 
+#define a function to setting the sequrity for variables that responsed...
+function setSequrity($data){
+  $data = trim(stripslashes(htmlspecialchars($data)));
+  return $data;
+}
 
 class MyCrud{
   public function __construct(){

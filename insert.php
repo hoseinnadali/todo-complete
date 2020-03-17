@@ -7,11 +7,7 @@ require_once "main.php";
 #there calling the jdf library to convert dates to shamsi
 require_once "jdf/jdf.php";
 
-#define a function to setting the sequrity for variables that responsed...
-function setSequrity($data){
-  $data = trim(stripslashes(htmlspecialchars($data)));
-  return $data;
-}
+
 #check out for variables that GET or POST,that requires is set or no
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_POST["title"]) || !isset($_POST["description"])){
