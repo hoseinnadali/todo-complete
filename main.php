@@ -12,24 +12,24 @@ function setSequrity($data){
   return $data;
 }
 
-//this class is defined to display the records that by read method will be selected
-class TableRows extends RecursiveIteratorIterator {
-  function __construct($it) {
-    parent::__construct($it, self::LEAVES_ONLY);
-  }
-
-  function current() {
-    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-  }
-
-  function beginChildren() {
-    echo "<tr>";
-  }
-
-  function endChildren() {
-    echo "</tr>" . "\n";
-  }
-}
+// //this class is defined to display the records that by read method will be selected
+// class TableRows extends RecursiveIteratorIterator {
+//   function __construct($it) {
+//     parent::__construct($it, self::LEAVES_ONLY);
+//   }
+//
+//   function current() {
+//     return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+//   }
+//
+//   function beginChildren() {
+//     echo "<tr>";
+//   }
+//
+//   function endChildren() {
+//     echo "</tr>" . "\n";
+//   }
+// }
 
 
 //there create a class that working as CRUD to work on database and do 4 main action(CREATE,READ,UPDATE,DELETE)
@@ -84,10 +84,9 @@ class MyCrud{
         $query = $readConnection->prepare($query);
         $query->execute();
         $fetchMode = $query->setFetchMode(PDO::FETCH_ASSOC);
-        foreach($query->fetchAll() as $key=>$value){
-          print_r($value['title']."<br>");
+        foreach(/*new TableRows(new RecursiveIteratorIterator(*/$query->fetchAll()/*))*/ as $key=>$value){
+          /*echo*/print_r($value/*)*/['title']."<br>");
         }
-
         echo "Your records return directly";
         $readConnection = null;
       } catch (PDOException $e) {
