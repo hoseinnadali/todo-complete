@@ -8,11 +8,8 @@ if($_SERVER["REQUEST_METHOD" ] == "POST") {
   $readUndonesQuery = "SELECT title FROM $readUndonesCrud->tableName WHERE isDone=0";
   $readUndonesConnection = $readUndonesCrud->setConnection();
   $readUndonesCrud->read($readUndonesConnection,$readUndonesQuery);
+  exit();
 }
-
-
-
-
-
+echo "Sorry!!!There is missing request";
 
  ?>
