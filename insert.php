@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   exit();
   }
 }
-echo "Sorry!!!<br>There is <i>missing request</i>";
+echo "Sorry!!!There is missing request";
 
 
 
