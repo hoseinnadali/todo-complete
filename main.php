@@ -78,14 +78,14 @@ class MyCrud{
         echo "Execute failed: ".$e->getMessage();
       }
     }
-    public function readAll($readConnection,$query){
+    public function read($readConnection,$query){
       try {
         $readConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $query = $readConnection->prepare($query);
         $query->execute();
         $fetchMode = $query->setFetchMode(PDO::FETCH_ASSOC);
-        foreach(new TableRows(new RecursiveArrayIterator($query->fetchAll())) as $key=>$value){
-          echo $value;
+        foreach($query->fetchAll() as $key=>$value){
+          print_r($value['title']."<br>");
         }
 
         echo "Your records return directly";
