@@ -11,6 +11,27 @@ function setSequrity($data){
   $data = trim(stripslashes(htmlspecialchars($data)));
   return $data;
 }
+
+//this class is defined to display the records that by read method will be selected
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
+
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
+
+  function beginChildren() {
+    echo "<tr>";
+  }
+
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+
 //there create a class that working as CRUD to work on database and do 4 main action(CREATE,READ,UPDATE,DELETE)
 class MyCrud{
   //define a constructor function that construct the attributes
@@ -56,6 +77,24 @@ class MyCrud{
       } catch (PDOException $e) {
         echo "Execute failed: ".$e->getMessage();
       }
+    }
+    public function readAll($readConnection,$query){
+      try {
+        $readConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $query = $readConnection->prepare($query);
+        $query->execute();
+        $fetchMode = $query->setFetchMode(PDO::FETCH_ASSOC);
+        foreach(new TableRows(new RecursiveArrayIterator($query->fetchAll())) as $key=>$value){
+          echo $value;
+        }
+
+        echo "Your records return directly";
+        $readConnection = null;
+      } catch (PDOException $e) {
+        echo "Execute failed :".$e->getMessage();
+      }
+
+
     }
 }
 
