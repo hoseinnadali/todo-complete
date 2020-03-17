@@ -8,29 +8,28 @@ require_once "main.php";
 require_once "jdf.php";
 
 #define a function to setting the sequrity for variables that responsed...
-public function setSequrity($data){
+function setSequrity($data){
   $data = trim(stripslashes(htmlspecialchars($data)));
   return $data;
 }
 #check out for variables that GET or POST,that requires is set or no
-if($_SERVER[REQUEST_METHOD] == "POST"){
-  if(!isset($_POST[])){
-    echo "Sorry!!!<br>There is <i>nothing</i>";
-    exit();
-  }
+if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(!isset($_POST["title"]) || !isset($_POST["description"])){
     echo "Sorry!!!<br>There are not <i>nothing for require variables</i>";
     exit();
-  }
-  !empty($_POST["dueDate"]) ? $dueDate = jdate("Ynj",setSequrity($_POST["dueDate"])) : $dueDate = null;
+  }else{
+  (isset($_POST["dueDate"]) && !empty($_POST["dueDate"])) ? $dueDate = $_POST["dueDate"] : $dueDate = null;
   $title = setSequrity($_POST["title"]);
   $description = setSequrity($_POST["description"]);
-  $addDate = setSequrity(jdate("Ynj"));
+  $dueDate = jdate(setSequrity($dueDate));
+  $addDate = jdate("Ynj");
   $editDate = null;
   $isDone = false;
   $insertCrud = new MyCrud();
   $insertConnection = $insertCrud->setConnection();
   $insertCrud->insert($insertConnection,$title,$description,$dueDate,$addDate,$editDate,$isDone);
+  exit();
+  }
 }
 echo "Sorry!!!<br>There is <i>missing request</i>";
 
