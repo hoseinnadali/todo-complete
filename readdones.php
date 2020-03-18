@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $readDonesCrud = new MyCrud();
   $readDonesQuery = "SELECT * FROM $readDonesCrud->tableName WHERE isDone=1";
   $readDonesConnection = $readDonesCrud->setConnection();
-  $readDonesCrud->read($readDonesConnection,$readDonesQuery);
+  $readedRecords = $readDonesCrud->read($readDonesConnection,$readDonesQuery);
   exit();
 }
 echo "Sorry!!!There is missing request";
