@@ -13,6 +13,7 @@ function setSequrity($data){
 }
 
 // //this class is defined to display the records that by read method will be selected
+#but i commented this becuase not require
 // class TableRows extends RecursiveIteratorIterator {
 //   function __construct($it) {
 //     parent::__construct($it, self::LEAVES_ONLY);
@@ -67,10 +68,10 @@ class MyCrud{
     }
   }
   //define a function to delete a row of database by title value of that
-    public function delete($deleteConnection,$title){
+    public function delete($deleteConnection,$id){
       try {
         $deleteConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        $query = "DELETE FROM $this->tableName WHERE title = '$title'";
+        $query = "DELETE FROM $this->tableName WHERE id = '$id'";
         $deleteConnection->exec($query);
         echo "Your selected record deleted successfully";
         $deleteConnection = null;
@@ -78,21 +79,42 @@ class MyCrud{
         echo "Execute failed: ".$e->getMessage();
       }
     }
-    public function read($readConnection,$query){
+    //define a function to read records from database by a input parameter extra '$query' that this is a string to executing requirement query
+    public function read($readConnection,$query):array{
       try {
         $readConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $query = $readConnection->prepare($query);
         $query->execute();
         $fetchMode = $query->setFetchMode(PDO::FETCH_ASSOC);
+        #set a new array variable to return executed query from database
+        $fetchedRecords = array();
+        #display title records
         foreach(/*new TableRows(new RecursiveIteratorIterator(*/$query->fetchAll()/*))*/ as $key=>$value){
-          /*echo*/print_r($value/*)*/['title']."<br>");
+          /*echo*/print_r($value/*)*/['id']."<br>");
+          $fetchedRecords[] = $value;
         }
-        echo "Your records return directly";
+        #check that exist nothing from fetched record
+        empty($fetchedRecords) ? print"Sorry!!! Nothing" : print"Yes,exist ";
         $readConnection = null;
+        return ($fetchedRecords);
       } catch (PDOException $e) {
         echo "Execute failed :".$e->getMessage();
       }
-
+    }
+    //define a function to updating records of database by searching their id
+    public function update($updateConnection,$id,$newTitle,$newDescription,$newDueDate,$newEditDate,$newIsDone){
+      try {
+        $updateConnection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $query = "UPDATE $this->tableName
+        SET title='$newTitle',description='$newDescription',dueDate='$newDueDate',editDate='$newEditDate',isDone='$newIsDone'
+        WHERE id='$id'";
+        $update = $updateConnection->prepare($query);
+        $update->execute();
+        echo "Your fields will update";
+        $updateConnection = null;
+      } catch (PDOException $e) {
+        echo "Update failed: ".$e->getMessage();
+      }
 
     }
 }

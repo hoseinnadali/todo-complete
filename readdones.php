@@ -4,7 +4,7 @@ require_once "main.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $readDonesCrud = new MyCrud();
-  $readDonesQuery = "SELECT title FROM $readDonesCrud->tableName WHERE isDone=1";
+  $readDonesQuery = "SELECT * FROM $readDonesCrud->tableName WHERE isDone=1";
   $readDonesConnection = $readDonesCrud->setConnection();
   $readDonesCrud->read($readDonesConnection,$readDonesQuery);
   exit();

@@ -17,6 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   (isset($_POST["dueDate"]) && !empty($_POST["dueDate"])) ? $dueDate = $_POST["dueDate"] : $dueDate = null;
   $title = setSequrity($_POST["title"]);
   $description = setSequrity($_POST["description"]);
+  #use the jdf library and its jdate function to converting date to solardate
   $dueDate = jdate(setSequrity($dueDate));
   $addDate = jdate("Ynj");
   $editDate = null;

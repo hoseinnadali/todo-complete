@@ -6,7 +6,7 @@ require_once "main.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $readAllCrud = new MyCrud();
-  $readAllQuery = "SELECT title FROM $readAllCrud->tableName";
+  $readAllQuery = "SELECT * FROM $readAllCrud->tableName";
   $readAllConnection = $readAllCrud->setConnection();
   $readAllCrud->read($readAllConnection,$readAllQuery);
   exit();
