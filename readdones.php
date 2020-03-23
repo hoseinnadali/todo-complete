@@ -6,14 +6,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $readDonesCrud = new MyCrud();
   $readDonesQuery = "SELECT * FROM $readDonesCrud->tableName WHERE isDone=1";
   $readDonesConnection = $readDonesCrud->setConnection();
-  $readedRecords = $readDonesCrud->read($readDonesConnection,$readDonesQuery);
+  $readedRecords = json_encode($readDonesCrud->read($readDonesConnection,$readDonesQuery));
+  echo $readedRecords;
   exit();
 }
-echo "Sorry!!!There is missing request";
-
-
-
-
-
-
  ?>

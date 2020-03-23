@@ -22,17 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $deleteCrud->delete($deleteConnection,$id);
     exit();
   }
-  echo "The posted request is invalid";
+  echo json_encode("The posted request is invalid");
   exit();
 }
-echo "Sorry!!!There is missing request";
-
-
-
-
-
-
-
-
-
 ?>
